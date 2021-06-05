@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlama.io.hrms.business.abstracts.JobPositionService;
+import kodlama.io.hrms.core.utilities.results.DataResult;
+import kodlama.io.hrms.core.utilities.results.ErrorResult;
+import kodlama.io.hrms.core.utilities.results.Result;
+import kodlama.io.hrms.core.utilities.results.SuccessDataResult;
+import kodlama.io.hrms.core.utilities.results.SuccessResult;
 import kodlama.io.hrms.dataAccess.abstracts.JobPositionDao;
 import kodlama.io.hrms.entities.JobPosition;
 
@@ -24,11 +29,26 @@ public class JobPositionManager implements JobPositionService {
 
 
 
+	@Override
+	public DataResult<List<JobPosition>> gettAll() {
+		return new SuccessDataResult<List<JobPosition>>(this.jobPositionDao.findAll());
+	}
+
 
 	@Override
-	public List<JobPosition> getAll() {
-		
-		return this.jobPositionDao.findAll();
+	public DataResult<JobPosition> getPositionName(String positionName) {
+		return new SuccessDataResult<JobPosition>(this.jobPositionDao.findByPositionName(positionName));
 	}
+
+
+
+	@Override
+	public Result add(JobPosition jobPosition) {
+		if(this.jobPositionDao.findByPositionName(jobPosition.getTitle())!=null)
+            return new ErrorResult("Aynı isimde iki adet iş pozisyonu oluşturulamaz.");
+        this.jobPositionDao.save(jobPosition);
+        return new SuccessResult("İş pozisyonu başarıyla eklendi.");
+	}
+		
 
 }
