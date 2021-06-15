@@ -6,7 +6,7 @@ import kodlama.io.hrms.entities.JobPosition;
 
 public interface JobPositionDao extends JpaRepository<JobPosition,Integer> {
 	
-	JobPosition findByPositionName(String positionName);
+	JobPosition findByTitle(String title);
 	
 
 }

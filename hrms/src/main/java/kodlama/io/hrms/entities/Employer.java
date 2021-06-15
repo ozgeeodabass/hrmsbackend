@@ -1,7 +1,11 @@
 package kodlama.io.hrms.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -15,8 +19,6 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 @PrimaryKeyJoinColumn(name="id")
 @Table(name="employer_users")
 public class Employer extends User {
@@ -36,7 +38,10 @@ public class Employer extends User {
 	@Column(name="password_again")
 	private String passwordAgain;
 	
-	
+	@Column(name="nationality_id")
+	private String nationalityId;
+	@OneToMany
+	private List<JobAdvertisement> jobAdvertisements;
 	
 
 }

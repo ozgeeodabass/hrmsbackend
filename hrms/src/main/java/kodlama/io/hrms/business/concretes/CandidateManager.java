@@ -61,7 +61,7 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public DataResult<Candidate> getCandidateByNationalId(String nationalityId) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findCandidateByNationalId(nationalityId));
+		return new SuccessDataResult<Candidate>(this.candidateDao.findCandidateByNationalityId(nationalityId));
 		
 	}
 
@@ -105,7 +105,7 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public Result existWithTc(String Tc) {
-		if(candidateDao.findCandidateByNationalId(Tc)!=null) {
+		if(candidateDao.findCandidateByNationalityId(Tc)!=null) {
 			return new ErrorResult("Bu TC kimlik numarası ile zaten bit kayıt var!");
 		}
 		return new SuccessResult();

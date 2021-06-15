@@ -7,7 +7,7 @@ import kodlama.io.hrms.entities.JobPosition;
 
 public interface CandidateDao extends JpaRepository<Candidate,Integer> {
 	
-	Candidate findCandidateByNationalId(String nationalId);
+	Candidate findCandidateByNationalityId(String nationalityId);
 	Candidate findCandidateByEmail(String email);
 
 	
