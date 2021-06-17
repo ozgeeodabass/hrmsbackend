@@ -13,7 +13,9 @@ import kodlama.io.hrms.core.utilities.results.SuccessDataResult;
 import kodlama.io.hrms.core.utilities.results.SuccessResult;
 import kodlama.io.hrms.dataAccess.abstracts.CandidateDao;
 import kodlama.io.hrms.entities.Candidate;
+import kodlama.io.hrms.entities.dtos.CandidateWithCvDto;
 import kodlama.io.hrms.mernis.fakeMernisService;
+import net.bytebuddy.asm.Advice.This;
 
 @Service
 public class CandidateManager implements CandidateService {
@@ -120,6 +122,12 @@ public class CandidateManager implements CandidateService {
 			return new ErrorResult("Bu email ile zaten bit kayıt var!");
 		}
 		return new SuccessResult();
+	}
+
+	@Override
+	public DataResult<CandidateWithCvDto> getCandidateWithCvDetails() {
+		return new SuccessDataResult<CandidateWithCvDto>(this.candidateDao.getCandidateWithCvDetails());
+		
 	}
 	
 	

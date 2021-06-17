@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="job_advertisements")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","cities"})
 public class JobAdvertisement {
 
 	@Id
@@ -54,7 +55,6 @@ public class JobAdvertisement {
 	private boolean isActive;
 	
 	@ManyToOne
-	@JsonIgnoreProperties({"id","webAddress","phoneNumber","password","email","createdAt"})
 	@JoinColumn(name="employer_id")
 	private Employer employer;
 	
@@ -63,6 +63,7 @@ public class JobAdvertisement {
 	private JobPosition jobPosition;
 	
 	@ManyToMany
+	@JoinColumn(name="id")
 	private List<City> cities;
 	
 	

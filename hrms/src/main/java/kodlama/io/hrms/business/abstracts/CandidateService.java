@@ -4,6 +4,7 @@ import java.util.List;
 import kodlama.io.hrms.core.utilities.results.DataResult;
 import kodlama.io.hrms.core.utilities.results.Result;
 import kodlama.io.hrms.entities.Candidate;
+import kodlama.io.hrms.entities.dtos.CandidateWithCvDto;
 
 public interface CandidateService {
 
@@ -18,6 +19,9 @@ public interface CandidateService {
 	
 	Result existWithTc(String Tc);
 	Result existWithEmail(String eMail);
+	
+	DataResult<CandidateWithCvDto> getCandidateWithCvDetails();
+	
 	
 	
 	

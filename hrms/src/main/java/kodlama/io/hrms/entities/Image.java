@@ -1,44 +1,39 @@
 package kodlama.io.hrms.entities;
 
-import java.util.List;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name="cities")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements"})
-public class City {
-	
+@NoArgsConstructor
+@Table(name="images")
+public class Image {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="city_name")
-	private String cityName;
+	@Column(name="url")
+	private String url;
 	
-	@ManyToMany
-	private List<JobAdvertisement> jobAdvertisements;
+	@Column(name="uploaded_date")
+	private LocalDate uploadedDate;
 	
-	
+	@OneToOne
+	private Cv cv;
 	
 	
 }

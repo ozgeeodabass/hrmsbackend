@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -36,6 +37,10 @@ public class Candidate extends User {
 	
 	@Column(name="password_again")
 	private String passwordAgain;
+	
+	@OneToOne(mappedBy = "candidate")
+	private Cv cv;
+	
 	
 	
 	
