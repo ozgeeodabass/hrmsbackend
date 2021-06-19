@@ -1,5 +1,9 @@
 package kodlama.io.hrms;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 import org.springframework.boot.SpringApplication;
 
 
@@ -20,13 +24,16 @@ import com.cloudinary.utils.ObjectUtils;
 
 public class HrmsApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(HrmsApplication.class, args);
 		
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
 				"cloud_name", "dazkfy3xj",
 				"api_key", "714473983954749",
 				"api_secret", "bUrW7UHNM-dDutZPU0S5z5OZc-Y"));
+		
+		File file = new File("my_image.jpg");
+		Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
 		
 	}
 	

@@ -32,7 +32,7 @@ public class JobExperienceManager implements JobExperienceService{
 
 	@Override
 	public DataResult<List<JobExperience>> getByCandidateId(int id) {
-		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getByCandidate_Id(id));
+		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getByCandidate(id));
 	}
 
 	@Override

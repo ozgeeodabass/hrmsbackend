@@ -31,7 +31,6 @@ public class Language {
 	private int languageLevel;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
 	private Cv cv;
 	
 	

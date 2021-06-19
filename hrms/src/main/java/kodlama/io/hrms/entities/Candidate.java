@@ -1,9 +1,11 @@
 package kodlama.io.hrms.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -40,6 +42,12 @@ public class Candidate extends User {
 	
 	@OneToOne(mappedBy = "candidate")
 	private Cv cv;
+	
+	@OneToMany
+	private List<JobExperience> jobExperiences;
+	
+	@OneToMany
+	private List<School> schools;
 	
 	
 	

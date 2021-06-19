@@ -43,8 +43,11 @@ public class School {
 	private LocalDate graduationYear;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
 	private Cv cv;
+	
+	@ManyToOne
+	private Candidate candidate;
+	
 	
 	
 	

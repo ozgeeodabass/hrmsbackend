@@ -29,7 +29,6 @@ public class Skill {
 	private String skillName;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
 	private Cv cv;
 	
 	

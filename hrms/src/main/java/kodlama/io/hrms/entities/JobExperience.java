@@ -36,9 +36,11 @@ public class JobExperience {
 	private LocalDate experienceDate;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
 	private Cv cv;
 	
+	
+	@ManyToOne
+	private Candidate candidate;
 	
 	
 	
