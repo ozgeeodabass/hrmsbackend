@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kodlama.io.hrms.business.abstracts.CandidateService;
 import kodlama.io.hrms.core.utilities.results.DataResult;
+import kodlama.io.hrms.core.utilities.results.SuccessDataResult;
 import kodlama.io.hrms.entities.Candidate;
+import kodlama.io.hrms.entities.dtos.CandidateWithCvDto;
 
 @RestController
 @RequestMapping("/api/candidates")
@@ -27,5 +29,10 @@ public class CandidatesController {
 	public DataResult<List<Candidate>> getAll() {
         return this.candidateService.gettAll();
     }
+	
+	@GetMapping("/getCandidateWithCv")
+	public DataResult<CandidateWithCvDto> findCandidateAndCvByCv_Id(int candidateId) {
+		return this.candidateService.findCandidateAndCvByCv_Id(candidateId);
+	}
 
 }

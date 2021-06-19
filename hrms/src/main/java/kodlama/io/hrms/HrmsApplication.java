@@ -35,6 +35,8 @@ public class HrmsApplication {
 		File file = new File("my_image.jpg");
 		Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
 		
+		System.out.println(uploadResult.get("url"));
+		
 	}
 	
 	 @Bean

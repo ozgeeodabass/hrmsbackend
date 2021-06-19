@@ -20,6 +20,8 @@ public interface CandidateService {
 	Result existWithTc(String Tc);
 	Result existWithEmail(String eMail);
 	
+	DataResult<CandidateWithCvDto> findCandidateAndCvByCv_Id(int candidateId);
+	
 	
 	
 	

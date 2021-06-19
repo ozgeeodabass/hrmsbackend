@@ -13,6 +13,9 @@ public interface CandidateDao extends JpaRepository<Candidate,Integer> {
 	
 	
 	
+	CandidateWithCvDto findCandidateAndCvByCv_Id(int candidateId);
+	
+	
 	
 	
 	

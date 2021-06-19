@@ -124,6 +124,13 @@ public class CandidateManager implements CandidateService {
 		return new SuccessResult();
 	}
 
+	@Override
+	public DataResult<CandidateWithCvDto> findCandidateAndCvByCv_Id(int candidateId) {
+		return new SuccessDataResult<CandidateWithCvDto>(this.candidateDao.findCandidateAndCvByCv_Id(candidateId));
+	}
+
+	
+
 	
 	
 	
