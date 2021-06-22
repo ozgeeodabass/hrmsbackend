@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 public class JobExperience {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@Column(name="jobexperience_id")
+	private int jobExperienceId;
 	
 	@Column(name="company_name")
 	private String companyName;
@@ -33,14 +33,14 @@ public class JobExperience {
 	private String position;
 	
 	@Column(name="experience_date")
-	private LocalDate experienceDate;
+	private LocalDate experienceStartDate;
 	
-	@ManyToOne
+	@Column(name="is_ecperience_end")
+	private boolean isExperienceEnd;
+	
+	
+	@ManyToOne()
 	private Cv cv;
-	
-	
-	@ManyToOne
-	private Candidate candidate;
 	
 	
 	

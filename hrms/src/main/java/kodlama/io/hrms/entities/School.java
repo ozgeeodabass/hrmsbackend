@@ -26,8 +26,8 @@ public class School {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@Column(name="school_id")
+	private int schoolId;
 	
 	@Column(name="name")
 	private String schoolName;
@@ -42,11 +42,8 @@ public class School {
 	@Nullable
 	private LocalDate graduationYear;
 	
-	@ManyToOne
+	@ManyToOne()
 	private Cv cv;
-	
-	@ManyToOne
-	private Candidate candidate;
 	
 	
 	

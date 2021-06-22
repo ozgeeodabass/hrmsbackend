@@ -30,10 +30,6 @@ public class SchoolManager implements SchoolService {
 		return new SuccessDataResult<List<School>>(this.schoolDao.findAll());
 	}
 
-	@Override
-	public DataResult<List<School>> getByCandidateId(int id) {
-		return new SuccessDataResult<List<School>>(this.schoolDao.getByCandidate_Id(id));
-	}
 
 	@Override
 	public DataResult<List<School>> getSchoolsByReverseSort(int id) {

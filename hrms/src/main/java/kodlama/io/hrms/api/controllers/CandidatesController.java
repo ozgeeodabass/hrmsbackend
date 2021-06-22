@@ -30,9 +30,6 @@ public class CandidatesController {
         return this.candidateService.gettAll();
     }
 	
-	@GetMapping("/getCandidateWithCv")
-	public DataResult<CandidateWithCvDto> findCandidateAndCvByCv_Id(int candidateId) {
-		return this.candidateService.findCandidateAndCvByCv_Id(candidateId);
-	}
+	
 
 }

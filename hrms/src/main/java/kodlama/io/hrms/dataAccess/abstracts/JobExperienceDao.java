@@ -10,5 +10,5 @@ import kodlama.io.hrms.entities.JobExperience;
 
 public interface JobExperienceDao extends JpaRepository<JobExperience, Integer> {
 
-	List<JobExperience> getByCandidate(int id);
+	
 }

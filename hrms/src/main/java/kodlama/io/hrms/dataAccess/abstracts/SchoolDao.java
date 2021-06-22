@@ -8,6 +8,5 @@ import kodlama.io.hrms.entities.School;
 
 public interface SchoolDao extends JpaRepository<School, Integer> {
 
-	List<School> getByCandidate_Id(int id);
 	
 }

@@ -4,6 +4,7 @@ package kodlama.io.hrms.entities.dtos;
 
 import java.time.LocalDate;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,16 +22,22 @@ public class CandidateWithCvDto {
 	private String githubLink;
 	private String linkedinLink;
 	private String coverLetter;
+	
 	private String schoolName;
 	private String department;
 	private LocalDate schoolStartYear;
 	private LocalDate graduationYear;
-	private String jobExperience_companyName;
-	private String jobExperience_position;
-	private String jobExperienceDate;
+	
+	private String companyName;
+	private String position;
+	private LocalDate experienceStartDate;
+	private boolean isExperienceEnd;
+	
 	private String languageName;
-	private String languageLevel;
+	private int languageLevel;
+	
 	private String skillName;
+	
 	private String imageUrl;
 	
 }

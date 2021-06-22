@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,12 +31,8 @@ public class Cv {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
-	
-	@OneToOne
-	@JoinColumn(name="id")
-	private Candidate candidate;
+	@Column(name="cv_id")
+	private int CvId;
 	
 	@Column(name="github_address")
 	private String githubLink;
@@ -45,25 +43,30 @@ public class Cv {
 	@Column(name="cover_letter")
 	private String coverLetter;
 	
-	@OneToMany(mappedBy = "cv")
-	private List<School> schools;
-	
-
-	@OneToMany(mappedBy = "cv")
-	private List<JobExperience> jobExperiences;
-	
-	@OneToMany(mappedBy = "cv")
-	private List<Language> languages;
-	
 	@OneToOne(mappedBy = "cv", optional = true, fetch = FetchType.LAZY)
 	@Nullable
-	private Image image;
+	@JoinColumn(name="image_id",referencedColumnName = "candidate_cv_image")
+	private Image cvImage;
+	
+	@OneToOne(mappedBy= "cv")
+	@JoinColumn(name="id")
+	private Candidate candidate;
 	
 	@OneToMany(mappedBy = "cv")
+	@JsonIgnore
+	private List<JobExperience> jobExperiences;
+	
+	@OneToMany(mappedBy= "cv")
+	@JsonIgnore
+	private List<School> schools;
+	
+	@OneToMany(mappedBy = "cv")
+	@JsonIgnore
+	private List<Language> languages;
+	
+	@OneToMany(mappedBy = "cv")
+	@JsonIgnore
 	private List<Skill> skills;
 	
 	
-	
-	
-
 }

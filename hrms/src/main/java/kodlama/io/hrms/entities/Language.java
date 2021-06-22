@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 public class Language {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@Column(name="language_id")
+	private int languageId;
 	
 	@Column(name="name")
 	private String languageName;
@@ -30,8 +30,11 @@ public class Language {
 	@Column(name="level")
 	private int languageLevel;
 	
-	@ManyToOne
+	@ManyToOne()
 	private Cv cv;
+	
+	
+	
 	
 	
 	

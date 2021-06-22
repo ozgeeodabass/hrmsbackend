@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,8 +24,8 @@ public class Image {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@Column(name="image_id")
+	private int imageId;
 	
 	@Column(name="url")
 	private String url;
@@ -33,6 +34,7 @@ public class Image {
 	private LocalDate uploadedDate;
 	
 	@OneToOne
+	@JoinColumn(name="image_id")
 	private Cv cv;
 	
 	

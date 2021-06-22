@@ -30,10 +30,6 @@ public class JobExperienceManager implements JobExperienceService{
 		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.findAll());
 	}
 
-	@Override
-	public DataResult<List<JobExperience>> getByCandidateId(int id) {
-		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getByCandidate(id));
-	}
 
 	@Override
 	public DataResult<List<JobExperience>> getExperiencesByReverseSort(int id) {
@@ -53,6 +49,8 @@ public class JobExperienceManager implements JobExperienceService{
 		return new SuccessResult("İş tecrübesi eklendi");
 		
 	}
+
+	
 	
 	
 	

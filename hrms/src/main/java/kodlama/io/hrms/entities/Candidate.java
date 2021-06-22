@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -40,14 +41,10 @@ public class Candidate extends User {
 	@Column(name="password_again")
 	private String passwordAgain;
 	
-	@OneToOne(mappedBy = "candidate")
+	@OneToOne
+	@JoinColumn(name="id")
 	private Cv cv;
 	
-	@OneToMany
-	private List<JobExperience> jobExperiences;
-	
-	@OneToMany
-	private List<School> schools;
 	
 	
 	
