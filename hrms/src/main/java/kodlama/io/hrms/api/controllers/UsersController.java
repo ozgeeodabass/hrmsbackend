@@ -1,7 +1,6 @@
 package kodlama.io.hrms.api.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -20,45 +19,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import kodlama.io.hrms.business.abstracts.CandidateService;
+import kodlama.io.hrms.business.abstracts.UserService;
+import kodlama.io.hrms.core.entities.User;
 import kodlama.io.hrms.core.utilities.results.DataResult;
 import kodlama.io.hrms.core.utilities.results.ErrorDataResult;
-import kodlama.io.hrms.core.utilities.results.Result;
 import kodlama.io.hrms.core.utilities.results.SuccessDataResult;
-import kodlama.io.hrms.core.utilities.results.SuccessResult;
-import kodlama.io.hrms.entities.Candidate;
 
 
 @RestController
-@RequestMapping("/api/candidates")
-public class CandidatesController {
+@RequestMapping("/api/users")
+public class UsersController {
 	
-	private CandidateService candidateService;
+	private UserService userService;
 
 	@Autowired
-	public CandidatesController(CandidateService candidateService) {
+	public UsersController(UserService userService) {
 		super();
-		this.candidateService = candidateService;
-	}
-	
-	@GetMapping("/getall")
-	public ResponseEntity<?> getAll() {
-        return  ResponseEntity.ok(candidateService.gettAll());
-    }
-	
-	@GetMapping("/getById")
-	public ResponseEntity<?> getById(@Valid @RequestParam int id) {
-		return ResponseEntity.ok(this.candidateService.getById(id));
+		this.userService = userService;
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody Candidate candidate) {
-		
-		return ResponseEntity.ok(this.candidateService.add(candidate));
+	public ResponseEntity<?> add(@Valid @RequestBody User user) {
+		return ResponseEntity.ok(userService.add(user));
 		
 	}
 	
-
+	@GetMapping("/getByEmail")
+	public ResponseEntity<?> getByEmail(@Valid @RequestParam String email) {
+		return ResponseEntity.ok(this.userService.getByEmail(email));
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -72,6 +61,15 @@ public class CandidatesController {
 		ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
 		return errors;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
