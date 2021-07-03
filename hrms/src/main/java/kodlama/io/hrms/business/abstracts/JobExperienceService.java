@@ -8,9 +8,22 @@ import kodlama.io.hrms.entities.JobExperience;
 
 public interface JobExperienceService {
 
+	Result add(JobExperience jobExperience);
+	
+	Result delete(JobExperience jobExperience);
+	
+	Result update(JobExperience jobExperience);
+	
+	Result addAll(List<JobExperience> jobExperiences);
 	
 	DataResult<List<JobExperience>> getAll();
-	DataResult<List<JobExperience>> getExperiencesByReverseSort(int id);
+	
+	DataResult<List<JobExperience>> getByCandidateIdByReverseSort(int candidateId);
+	
 	DataResult<JobExperience> getById(int id);
-	Result add(JobExperience jobExperience);
+	
+	DataResult<List<JobExperience>> getByCandidateId(int id);
+	
+	DataResult<List<JobExperience>> getByCandidateIdOrderByStartDate(int id);
+	
 }

@@ -9,9 +9,10 @@ import kodlama.io.hrms.entities.JobPosition;
 public interface JobPositionService {
 	
 	DataResult<List<JobPosition>> gettAll();
-	DataResult<JobPosition> getByTitle(String title);
-	Result add(JobPosition position);
 	
+	DataResult<JobPosition> getByTitle(String title);
+	
+	Result add(JobPosition position);
 	
 	
 }

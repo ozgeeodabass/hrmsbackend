@@ -9,18 +9,30 @@ import kodlama.io.hrms.entities.JobAdvertisement;
 
 public interface JobAdvertisementService {
 	
-	DataResult<List<JobAdvertisement>> getAll();
-	DataResult<JobAdvertisement> getById(int id);
-	DataResult<JobAdvertisement> changeStatus(int employerId, int advertisementId, boolean status);
-	
 	Result add(JobAdvertisement jobAdvertisement);
+	
+	Result delete(JobAdvertisement jobAdvertisement);
+	
+	Result update(JobAdvertisement jobAdvertisement);
+	
+	DataResult<List<JobAdvertisement>> getAll();
+	
+	DataResult<JobAdvertisement> getById(int id);
+	
 	DataResult<List<JobAdvertisement>> getByIsActiveTrue();
+
+	DataResult<List<JobAdvertisement>> getAllSortedByCreatedDate();
+	
+	DataResult<List<JobAdvertisement>> getAllByEmployerId(int employerId);
 	
 	DataResult<List<JobAdvertisement>> getByIsActiveTrueAndApplicationDeadlineLessThanEqual(LocalDate date);
-	DataResult<List<JobAdvertisement>> getByIsActiveTrueAndEmployer_CompanyName(String companyName);
-	DataResult<List<JobAdvertisement>> getByIsActiveTrueAndCity_CityName(String cityName);
-	DataResult<List<JobAdvertisement>> getByEmployerId(int id);
+	
+	DataResult<List<JobAdvertisement>> getByIsActiveTrueAndCity_CityId(int cityId);
+	
 	DataResult<List<JobAdvertisement>> getByIsActiveTrueAndJobPosition(String jobPosition);
+	
 	DataResult<List<JobAdvertisement>> getByIdIn(List<Integer> ids);
+	
 	DataResult<List<JobAdvertisement>> getByJobPosition_TitleContains(String title);
+	
 }

@@ -7,12 +7,20 @@ import kodlama.io.hrms.core.utilities.results.DataResult;
 import kodlama.io.hrms.core.utilities.results.Result;
 
 public interface SchoolService {
-
-	DataResult<List<School>> getAll();
-	DataResult<List<School>> getSchoolsByReverseSort(int id);
-	DataResult<School> getById(int id);
+	
 	Result add(School school);
 	
+	Result addAll(List<School> schools);
+	
+	Result delete(School school);
+	
+	Result update(School school);
+	
+	DataResult<List<School>> getAllByCandidateId();
+	
+	DataResult<School> getById(int id);
+	
+	DataResult<List<School>> getByCandidateIdOrderByGraduationYear(int candidateId);
 	
 	
 	

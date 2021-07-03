@@ -7,6 +7,7 @@ import kodlama.io.hrms.core.utilities.results.Result;
 public interface UserService {
 
 	DataResult<User> getByEmail(String email);
+	
 	Result add(User user);
 	
 }
