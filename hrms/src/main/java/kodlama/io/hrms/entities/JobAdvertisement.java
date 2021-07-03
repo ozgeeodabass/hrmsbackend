@@ -42,8 +42,8 @@ public class JobAdvertisement {
 	@Column(name="number_of_open_positions")
 	private int numberOfOpenPositions;
 	
-	@Column(name="created_at")
-	private LocalDate createdAt = LocalDate.now();
+	@Column(name="created_date")
+	private LocalDate createdDate = LocalDate.now();
 	
 	@Column(name="application_deadline")
 	private LocalDate applicationDeadline;

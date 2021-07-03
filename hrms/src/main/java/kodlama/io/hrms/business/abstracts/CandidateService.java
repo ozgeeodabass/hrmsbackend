@@ -22,15 +22,11 @@ public interface CandidateService {
 	
 	DataResult<Candidate> getByEmail(String email);
 	
-	//Result register(Candidate candidate);
-	
-	//boolean checkPasswordIsTrue(Candidate candidate);
-	
-	//Result existWithTc(String Tc);
-	
-	//Result existWithEmail(String email);
-	
 	public DataResult<CvDto> getCvDtoById(int candidateId);
+
+	boolean existWithNationalityId(String nationalityId);
+
+	boolean existWithEmail(String email);
 	
 	
 }

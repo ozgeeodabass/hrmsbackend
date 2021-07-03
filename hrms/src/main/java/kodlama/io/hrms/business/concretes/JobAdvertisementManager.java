@@ -28,7 +28,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAll() {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findAll(),"Data Listelendi");
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findAll());
 	}
 
 	@Override
@@ -36,30 +36,17 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.getById(id));
 	}
 
-	@Override
-	public DataResult<JobAdvertisement> changeStatus(int employerId, int advertisementId, boolean status) {
-		List<JobAdvertisement> advertisements = this.jobAdvertisementDao.getByEmployerId(employerId);
-		
-		for(JobAdvertisement jobAdvertisement: advertisements) {
-			if(advertisementId ==jobAdvertisement.getId()) {
-				jobAdvertisement.setActive(status);
-				this.jobAdvertisementDao.save(jobAdvertisement);
-				return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.getById(advertisementId));
-			}
-		}
-		return new ErrorDataResult<JobAdvertisement>();
-	}
-
+	
 	@Override
 	public Result add(JobAdvertisement jobAdvertisement) {
 		this.jobAdvertisementDao.save(jobAdvertisement);
-		return new SuccessResult("İş ilanı eklendi");
+		return new SuccessResult("Job advertisement added");
 		
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getByIsActiveTrue() {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrue());
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActive());
 		
 	}
 
@@ -68,25 +55,16 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrueAndApplicationDeadlineLessThanEqual(date));
 	}
 
-	@Override
-	public DataResult<List<JobAdvertisement>> getByIsActiveTrueAndEmployer_CompanyName(String companyName) {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrueAndEmployer_CompanyName(companyName));
-		
-	}
 
 	@Override
-	public DataResult<List<JobAdvertisement>> getByIsActiveTrueAndCity_CityName(String cityName) {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrueAndCities_CityName(cityName));
+	public DataResult<List<JobAdvertisement>> getByIsActiveTrueAndCity_CityId(int cityId) {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrueAndCity_CityId(cityId));
 	}
 
-	@Override
-	public DataResult<List<JobAdvertisement>> getByEmployerId(int id) {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByEmployerId(id));
-	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getByIsActiveTrueAndJobPosition(String jobPosition) {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrueAndJobPosition(jobPosition));
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrueAndJobPositionEquals(jobPosition));
 	}
 
 	@Override
@@ -100,6 +78,32 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByJobPosition_TitleContains(title));
 		
 	}
+
+	@Override
+	public Result delete(JobAdvertisement jobAdvertisement) {
+		this.jobAdvertisementDao.delete(jobAdvertisement);
+		return new SuccessResult("Job advertisement deleted");
+	}
+
+	@Override
+	public Result update(JobAdvertisement jobAdvertisement) {
+		this.jobAdvertisementDao.save(jobAdvertisement);
+		return new SuccessResult("Job advertisement updated");
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllSortedByCreatedDate() {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveTrueAndOrderByCreatedAt());
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllByEmployerId(int employerId) {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByEmployer_Id(employerId));
+	}
+
+
+
+	
 	
 	
 	

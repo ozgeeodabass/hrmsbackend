@@ -25,28 +25,64 @@ public class SchoolManager implements SchoolService {
 		this.schoolDao = schoolDao;
 	}
 
-	@Override
-	public DataResult<List<School>> getAll() {
-		return new SuccessDataResult<List<School>>(this.schoolDao.findAll());
-	}
-
-
-	@Override
-	public DataResult<List<School>> getSchoolsByReverseSort(int id) {
-		Sort sort = Sort.by(Sort.Direction.DESC, "graduationYear");
-		
-		return new SuccessDataResult<List<School>>(this.schoolDao.findAll(sort));
-	}
-
-	@Override
-	public DataResult<School> getById(int id) {
-		return new SuccessDataResult<School>(this.schoolDao.getById(id));
-	}
+	
 
 	@Override
 	public Result add(School school) {
 		this.schoolDao.save(school);
 		return new SuccessResult("Okul eklendi");
+	}
+
+
+
+
+	@Override
+	public Result addAll(List<School> schools) {
+		for (School school : schools) {
+			this.schoolDao.save(school);
+		}
+		return new SuccessResult();
+	}
+
+
+
+
+	@Override
+	public Result delete(School school) {
+		this.schoolDao.delete(school);
+		return new SuccessResult();
+	}
+
+
+
+
+	@Override
+	public Result update(School school) {
+		this.schoolDao.save(school);
+		return new SuccessResult();
+	}
+
+
+
+
+	@Override
+	public DataResult<List<School>> getAllByCandidateId(int id) {
+		return new SuccessDataResult<List<School>>(this.schoolDao.getAllByCandidate_Id(id));
+	}
+
+
+
+
+	@Override
+	public DataResult<List<School>> getByCandidateIdOrderByGraduationYear(int candidateId) {
+		return new SuccessDataResult<List<School>>(this.schoolDao.getAllByCandidate_IdOrderByGraduationYear(candidateId));
+	}
+
+
+
+	@Override
+	public DataResult<School> getById(int id) {
+		return new SuccessDataResult<School>(this.schoolDao.getById(id));
 	}
 	
 	

@@ -1,11 +1,20 @@
 package kodlama.io.hrms.business.concretes;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlama.io.hrms.business.abstracts.CandidateService;
+import kodlama.io.hrms.business.abstracts.CoverLetterService;
+import kodlama.io.hrms.business.abstracts.ImageService;
+import kodlama.io.hrms.business.abstracts.JobExperienceService;
+import kodlama.io.hrms.business.abstracts.LanguageService;
+import kodlama.io.hrms.business.abstracts.LinkService;
+import kodlama.io.hrms.business.abstracts.SchoolService;
+import kodlama.io.hrms.business.abstracts.SkillService;
+import kodlama.io.hrms.core.utilities.adapters.mernis.UserCheckService;
 import kodlama.io.hrms.core.utilities.results.DataResult;
 import kodlama.io.hrms.core.utilities.results.ErrorResult;
 import kodlama.io.hrms.core.utilities.results.Result;
@@ -13,21 +22,38 @@ import kodlama.io.hrms.core.utilities.results.SuccessDataResult;
 import kodlama.io.hrms.core.utilities.results.SuccessResult;
 import kodlama.io.hrms.dataAccess.abstracts.CandidateDao;
 import kodlama.io.hrms.entities.Candidate;
-import kodlama.io.hrms.entities.dtos.CandidateWithCvDto;
-import kodlama.io.hrms.mernis.fakeMernisService;
-import net.bytebuddy.asm.Advice.This;
+import kodlama.io.hrms.entities.dtos.CvDto;
 
 @Service
 public class CandidateManager implements CandidateService {
 
-	private CandidateDao candidateDao;
-	private fakeMernisService mernisService;
 
+	private CandidateDao candidateDao;
+	private JobExperienceService jobExperienceService;
+	private UserCheckService userCheckService;
+	private ImageService imageService;
+	private LanguageService languageService;
+	private LinkService linkService;
+	private SkillService skillService;
+	private SchoolService schoolService;
+	private CoverLetterService coverLetterService;
+	
+   
 	@Autowired
-	public CandidateManager(CandidateDao candidateDao,fakeMernisService mernisService) {
+	public CandidateManager(CandidateDao candidateDao, JobExperienceService jobExperienceService,
+			UserCheckService userCheckService, ImageService imageService, LanguageService languageService,
+			LinkService linkService, SkillService skillService, SchoolService schoolService,
+			CoverLetterService coverLetterService) {
 		super();
 		this.candidateDao = candidateDao;
-		this.mernisService= mernisService;
+		this.jobExperienceService = jobExperienceService;
+		this.userCheckService = userCheckService;
+		this.imageService = imageService;
+		this.languageService = languageService;
+		this.linkService = linkService;
+		this.skillService = skillService;
+		this.schoolService = schoolService;
+		this.coverLetterService = coverLetterService;
 	}
 
 	@Override
@@ -43,94 +69,94 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public Result add(Candidate candidate) {
+		if(!checkIfRealPerson(candidate)) {
+			return new ErrorResult("Invalid person!");
+			
+		}
+		if(!existWithEmail(candidate.getEmail())) {
+			return new ErrorResult("This email is already exist. Please try another email.");
+		}
 		
+		if(!existWithNationalityId(candidate.getNationalityId())) {
+			return new ErrorResult("The user which has this nationality id is already exist.");
+		}
 	
 		this.candidateDao.save(candidate);
-		return new SuccessResult("İş arayan eklendi. Eposta doğrulaması bekleniyor.");
+		return new SuccessResult("Candidate added successfully. Email verification is waiting..");
 	}
 
 	@Override
-	public Result delete(int id) {
-		this.candidateDao.deleteById(id);
-		return new SuccessResult("İş arayan silindi");
+	public Result delete(Candidate candidate) {
+		this.candidateDao.deleteById(candidate.getId());
+		return new SuccessResult("Candidate deleted successfully.");
 	}
 
 	@Override
 	public Result update(Candidate candidate) {
 		this.candidateDao.save(candidate);
-		return new SuccessResult("İş arayan güncellendi");
+		return new SuccessResult("Candidate updated successfully.");
 	}
 
 	@Override
-	public DataResult<Candidate> getCandidateByNationalId(String nationalityId) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findCandidateByNationalityId(nationalityId));
+	public DataResult<Candidate> getCandidateByNationalityId(String nationalityId) {
+		return new SuccessDataResult<Candidate>(this.candidateDao.getCandidateByNationalityId(nationalityId));
 		
 	}
 
+
 	@Override
-	public Result register(Candidate candidate) {
-		if(candidate.getFirstName().isEmpty() || candidate.getLastName().isEmpty() || candidate.getNationalityId().isEmpty()
-				|| candidate.getDateOfBirth()==null || candidate.getEmail().isEmpty()|| candidate.getPassword().isEmpty()
-				|| candidate.getPasswordAgain().isEmpty() ) {
-			
-			return new ErrorResult("Bilgilerin tümü girilmiş olmalı");
-			
-			
+	public boolean existWithNationalityId(String nationalityId) {
+		if(candidateDao.getCandidateByEmail(nationalityId)!=null) {
+			return false;
 		}
-		
-		if(!(existWithEmail(candidate.getEmail()).isSuccess())){
-			return new ErrorResult("Farklı bir email adresi deneyiniz");
-		}
-		
-		if(!(existWithTc(candidate.getNationalityId()).isSuccess())){
-			return new ErrorResult("TC kimlik numaranızı kontrol ediniz");
-		}
-		
-		
-		if(!(this.mernisService.isValid(candidate.getNationalityId(), candidate.getFirstName(), candidate.getLastName(), candidate.getDateOfBirth()))){
-			return new ErrorResult("Mernis doğrulaması başarısız");
-		}
-		
-		add(candidate);
-		return new SuccessResult("Kullanıcı kayıt oldu. Eposta doğrulamı bekleniyor");
-		
+		return true;
 		
 	}
 
 	@Override
-	public boolean checkPasswordIsTrue(Candidate candidate) {
-		if(candidate.getPassword()!= candidate.getPasswordAgain()) {
+	public boolean existWithEmail(String email) {
+		
+		if(candidateDao.getCandidateByEmail(email)!=null) {
 			return false;
 		}
 		return true;
 	}
+	
+	
+	private boolean checkIfRealPerson(Candidate candidate) {
+		   if(!this.userCheckService.checkUser(Long.parseLong(candidate.getNationalityId()), candidate.getFirstName().toUpperCase(new Locale("tr")), candidate.getLastName().toLowerCase(new Locale("tr")),
+				   candidate.getDateOfBirth())) {
+			   
+			   return false;
+		   }
+		   return true;
+			
+		}
+		
 
 	@Override
-	public Result existWithTc(String Tc) {
-		if(candidateDao.findCandidateByNationalityId(Tc)!=null) {
-			return new ErrorResult("Bu TC kimlik numarası ile zaten bit kayıt var!");
-		}
-		return new SuccessResult();
-		
+	public DataResult<Candidate> getByEmail(String email) {
+		return new SuccessDataResult<Candidate>(this.candidateDao.getCandidateByEmail(email));
 	}
 
 	@Override
-	public Result existWithEmail(String eMail) {
+	public DataResult<CvDto> getCvDtoById(int candidateId) {
+		CvDto cv = new CvDto();
+		
+		cv.candidate=this.candidateDao.getById(candidateId);
+		cv.coverLetters=this.coverLetterService.getAllByCandidate_Id(candidateId).getData();
+		cv.image=this.imageService.getById(candidateId).getData();
+		cv.jobExperiences=this.jobExperienceService.getByCandidateId(candidateId).getData();
+		cv.languages=this.languageService.getAllByCandidateId(candidateId).getData();
+		cv.links=this.linkService.getAllByCandidateId(candidateId).getData();
+		cv.schools=this.schoolService.getAllByCandidateId(candidateId).getData();
+		cv.skills=this.skillService.getAllByCandidateId(candidateId).getData();
 		
 		
-		if(candidateDao.findCandidateByEmail(eMail)!=null) {
-			return new ErrorResult("Bu email ile zaten bit kayıt var!");
-		}
-		return new SuccessResult();
+		return new SuccessDataResult<CvDto>(cv);
+		
 	}
 
-	
-
-
-
-	
-	
-	
 	
 	
 }

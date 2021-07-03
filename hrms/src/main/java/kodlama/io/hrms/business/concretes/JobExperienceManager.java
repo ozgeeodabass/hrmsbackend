@@ -32,10 +32,49 @@ public class JobExperienceManager implements JobExperienceService{
 
 
 	@Override
-	public DataResult<List<JobExperience>> getExperiencesByReverseSort(int id) {
+	public DataResult<List<JobExperience>> getByCandidateIdByReverseSort(int id) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "experienceDate");
 		
 		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.findAll(sort));
+	}
+	
+
+	@Override
+	public Result add(JobExperience jobExperience) {
+		this.jobExperienceDao.save(jobExperience);
+		return new SuccessResult("Job experience added");
+		
+	}
+
+	@Override
+	public Result addAll(List<JobExperience> jobExperiences) {
+		for (JobExperience jobExperience : jobExperiences) {
+			this.jobExperienceDao.save(jobExperience);
+		}
+		
+		return new SuccessResult();
+	}
+
+	@Override
+	public DataResult<List<JobExperience>> getByCandidateId(int id) {
+		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getAllByCandidate_Id(id));
+	}
+
+	@Override
+	public DataResult<List<JobExperience>> getByCandidateIdOrderByExperienceStartDate(int id) {
+		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getByCandidate_IdOrderByExperienceStartDateDesc(id));
+	}
+
+	@Override
+	public Result delete(JobExperience jobExperience) {
+		this.jobExperienceDao.delete(jobExperience);
+		return new SuccessResult("Job experience deleted");
+	}
+
+	@Override
+	public Result update(JobExperience jobExperience) {
+		this.jobExperienceDao.save(jobExperience);
+		return new SuccessResult("Job experience updated");
 	}
 
 	@Override
@@ -43,22 +82,6 @@ public class JobExperienceManager implements JobExperienceService{
 		return new SuccessDataResult<JobExperience>(this.jobExperienceDao.getById(id));
 	}
 
-	@Override
-	public Result add(JobExperience jobExperience) {
-		this.jobExperienceDao.save(jobExperience);
-		return new SuccessResult("İş tecrübesi eklendi");
-		
-	}
-
-	
-	
-	
-	
-	
-
-
-	
-	
 	
 	
 }

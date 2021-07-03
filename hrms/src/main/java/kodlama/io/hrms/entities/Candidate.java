@@ -50,7 +50,7 @@ public class Candidate extends User {
 	@Column(name="date_of_birth")
 	@NotBlank
 	@NotNull
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	
 	@Column(name="is_email_verified")
 	@Nullable

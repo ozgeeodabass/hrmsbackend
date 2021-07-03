@@ -16,9 +16,9 @@ import kodlama.io.hrms.entities.Employer;
 
 @Service
 public class EmployerManager implements EmployerService {
-
+	
 	private EmployerDao employerDao;
-
+	
 	@Autowired
 	public EmployerManager(EmployerDao employerDao) {
 		super();
@@ -26,7 +26,31 @@ public class EmployerManager implements EmployerService {
 	}
 
 	@Override
-	public DataResult<List<Employer>> gettAll() {
+	public Result add(Employer employer) {
+		if(!isEmailExists(employer.getEmail())) {
+			return new ErrorResult("Email already exist. Please try another email.");
+		}
+		if(!isEmailAndDomainEqual(employer.getEmail(), employer.getWebSite())) {
+			return new ErrorResult("Email must include domain name.");
+		}
+		this.employerDao.save(employer);
+		return new SuccessResult("Employer added");
+		}
+
+	@Override
+	public Result delete(Employer employer) {
+		this.employerDao.delete(employer);
+		return new SuccessResult("Employer deleted");
+	}
+
+	@Override
+	public Result update(Employer employer) {
+		this.employerDao.save(employer);
+		return new SuccessResult("Employer updated");
+	}
+
+	@Override
+	public DataResult<List<Employer>> getAll() {
 		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll());
 	}
 
@@ -36,72 +60,29 @@ public class EmployerManager implements EmployerService {
 	}
 
 	@Override
-	public Result add(Employer employer) {
-		this.employerDao.save(employer);
-		return new SuccessResult("İşveren eklendi");
+	public DataResult<Employer> getByEmail(String email) {
+		return new SuccessDataResult<Employer>(this.employerDao.getByEmail(email));
 	}
-
-	@Override
-	public Result delete(int id) {
-		this.employerDao.deleteById(id);
-		return new SuccessResult("İşveren silindi");
-		
-	}
-
-	@Override
-	public Result update(Employer employer) {
-		this.employerDao.save(employer);
-		return new SuccessResult("İşveren güncellendi");
-	}
-
-	@Override
-	public DataResult<Employer> getEmployerByNationalalityId(String nationalityId) {
-		return new SuccessDataResult<Employer>(this.employerDao.findEmployerByNationalityId(nationalityId));
-		
-	}
-
-	@Override
-	public Result register(Employer employer) {
-		if(employer.getCompanyName().isEmpty() || employer.getWebSite().isEmpty() || employer.getDomainMail().isEmpty()
-				|| employer.getPhoneNumber().isEmpty() || employer.getPassword().isEmpty()
-				|| employer.getPasswordAgain().isEmpty() ) {
-			
-			return new ErrorResult("Bilgilerin tümü girilmiş olmalı");
-			
-		}
-		if(!employer.getDomainMail().contains(employer.getWebSite())) {
-			return new ErrorResult("Lütfen domain adresinizi içeren mail adresiniz ile kayıt olunuz");
-		
-		}
-		
-		if(!(existWithEmail(employer.getEmail()).isSuccess())){
-			return new ErrorResult("Farklı bir email adresi deneyiniz");
-		}
-
-		add(employer);
-		return new SuccessResult("Kayıt olundu. Email ve Personel onayı bekleniyor.");
-		
-		
-	}
-
-	@Override
-	public boolean checkPasswordIsTrue(Employer employer) {
-		if(employer.getPassword()!= employer.getPasswordAgain()) {
+	
+	
+	private boolean isEmailExists(String email) {
+		if(this.employerDao.getByEmail(email) !=null) {
 			return false;
 		}
 		return true;
+		
 	}
-
 	
+	private boolean isEmailAndDomainEqual(String email, String website) {
+		String[] emailArr = email.split("@", 2);
+		String domain = website.substring(4, website.length());
 
-	@Override
-	public Result existWithEmail(String eMail) {
-		if(employerDao.findEmployerByEmail(eMail)!=null) {
-			return new ErrorResult("Bu email ile zaten bit kayıt var!");
+		if (emailArr[1].equals(domain)) {
+
+			return true;
 		}
-		return new SuccessResult();
+
+		return false;
 	}
-	
-	
-	
+
 }

@@ -24,6 +24,6 @@ public interface JobExperienceService {
 	
 	DataResult<List<JobExperience>> getByCandidateId(int id);
 	
-	DataResult<List<JobExperience>> getByCandidateIdOrderByStartDate(int id);
+	DataResult<List<JobExperience>> getByCandidateIdOrderByExperienceStartDate(int id);
 	
 }

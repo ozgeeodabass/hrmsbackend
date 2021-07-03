@@ -37,17 +37,17 @@ public class JobPositionManager implements JobPositionService {
 
 	@Override
 	public DataResult<JobPosition> getByTitle(String title) {
-		return new SuccessDataResult<JobPosition>(this.jobPositionDao.findByTitle(title));
+		return new SuccessDataResult<JobPosition>(this.jobPositionDao.getByTitle(title));
 	}
 
 
 
 	@Override
 	public Result add(JobPosition jobPosition) {
-		if(this.jobPositionDao.findByTitle(jobPosition.getTitle())!=null)
-            return new ErrorResult("Aynı isimde iki adet iş pozisyonu oluşturulamaz.");
+		if(this.jobPositionDao.getByTitle(jobPosition.getTitle())!=null)
+            return new ErrorResult("Job position alreadry exists.");
         this.jobPositionDao.save(jobPosition);
-        return new SuccessResult("İş pozisyonu başarıyla eklendi.");
+        return new SuccessResult("Job position added");
 	}
 		
 
