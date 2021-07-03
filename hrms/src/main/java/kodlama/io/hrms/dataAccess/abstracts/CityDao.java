@@ -6,4 +6,7 @@ import kodlama.io.hrms.entities.City;
 
 public interface CityDao extends JpaRepository<City, Integer> {
 
+	City getById(int id);
+	City getByName(String name);
+	
 }
