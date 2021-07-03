@@ -1,7 +1,5 @@
 package kodlama.io.hrms.entities;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.lang.Nullable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -21,37 +17,27 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name="schools")
-public class School {
-
+@AllArgsConstructor
+@Table(name="cover_letters")
+public class CoverLetter {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
 	
-	@Column(name="name")
-	private String schoolName;
+	@Column(name = "cover_letter")
+	private String coverLetter;
 	
-	@Column(name="department")
-	private String departmentName;
+	//relational properties
 	
-	@Column(name="start_year")
-	private LocalDate startYear;
-	
-	@Column(name="graduation_year",nullable = true)
-	private LocalDate graduationYear;
-	
-	
-	//relational properties 
-	
-	
+	@JsonIgnore
 	@ManyToOne()
-	@JoinColumn(name = "candidate_id")
+	@JoinColumn(name="candidate_id")
 	private Candidate candidate;
 	
 	
-	
+
 	
 }

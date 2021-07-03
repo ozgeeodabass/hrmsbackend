@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,17 +23,24 @@ import lombok.NoArgsConstructor;
 public class Language {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="language_id")
-	private int languageId;
+	@Column(name="id")
+	private int id;
 	
 	@Column(name="name")
-	private String languageName;
+	private String name;
 	
 	@Column(name="level")
-	private int languageLevel;
+	@Min(value=1)
+	@Max(value=5)
+	private int level;
+	
+	
+	//relational properties 
+	
 	
 	@ManyToOne()
-	private Cv cv;
+	@JoinColumn(name = "candidate_id")
+	private Candidate candidate;
 	
 	
 	

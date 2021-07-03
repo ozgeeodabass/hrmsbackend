@@ -9,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,24 +26,28 @@ import lombok.NoArgsConstructor;
 public class JobExperience {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="jobexperience_id")
-	private int jobExperienceId;
-	
-	@Column(name="company_name")
-	private String companyName;
+	@Column(name="id")
+	private int id;
 	
 	@Column(name="position")
 	private String position;
 	
-	@Column(name="experience_date")
-	private LocalDate experienceStartDate;
+	@Column(name="start_date")
+	private LocalDate startDate;
 	
-	@Column(name="is_ecperience_end")
-	private boolean isExperienceEnd;
+	@Column(name="end_date",nullable = true)
+	private LocalDate endDate;
+	
+	
+	//relational properties
 	
 	
 	@ManyToOne()
-	private Cv cv;
+	@JoinColumn(name = "candidate_id")
+	private Candidate candidate;
+	
+	
+	
 	
 	
 	

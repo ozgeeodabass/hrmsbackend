@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,15 +21,17 @@ public class Skill {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="skill_id")
-	private int skillId;
+	@Column(name="id")
+	private int id;
 	
-	@Column(name="skill_name")
-	private String skillName;
+	@Column(name="name")
+	private String name;
+	
+	//relational properties
 	
 	@ManyToOne()
-	private Cv cv;
-	
+	@JoinColumn(name = "candidate_id")
+	private Candidate candidate;
 	
 
 }

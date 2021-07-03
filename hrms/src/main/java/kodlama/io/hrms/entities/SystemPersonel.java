@@ -14,12 +14,12 @@ import lombok.Setter;
 
 @Entity
 @Data
-@Table(name="system_personel_users")
+@Table(name="system_personels")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "id",referencedColumnName = "id")
 public class SystemPersonel extends User {
 	
 	@Column(name="first_name")
