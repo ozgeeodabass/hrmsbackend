@@ -56,10 +56,5 @@ public class SkillManager implements SkillService {
 		return new SuccessDataResult<List<Skill>>(this.skillDao.getAllByCandidateId(candidateId));
 	}
 	
-	
-	
-	
-	
-	
 
 }
