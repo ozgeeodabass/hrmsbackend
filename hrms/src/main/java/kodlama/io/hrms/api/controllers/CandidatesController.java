@@ -1,7 +1,6 @@
 package kodlama.io.hrms.api.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,11 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlama.io.hrms.business.abstracts.CandidateService;
-import kodlama.io.hrms.core.utilities.results.DataResult;
 import kodlama.io.hrms.core.utilities.results.ErrorDataResult;
-import kodlama.io.hrms.core.utilities.results.Result;
-import kodlama.io.hrms.core.utilities.results.SuccessDataResult;
-import kodlama.io.hrms.core.utilities.results.SuccessResult;
 import kodlama.io.hrms.entities.Candidate;
 
 
@@ -58,7 +54,34 @@ public class CandidatesController {
 		
 	}
 	
-
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> delete(@Valid @RequestBody Candidate candidate) {
+		return ResponseEntity.ok(this.candidateService.delete(candidate));
+		
+	}
+	
+	@PostMapping("/update")
+	public ResponseEntity<?> update(@Valid @RequestBody Candidate candidate) {
+		return ResponseEntity.ok(this.candidateService.update(candidate));
+		
+	}
+	
+	@GetMapping("/getCandidateByNationalityId")
+	public ResponseEntity<?> getCandidateByNationalityId(@Valid @RequestParam String nationalityId){
+		return ResponseEntity.ok(this.candidateService.getCandidateByNationalityId(nationalityId));
+		
+	}
+	
+	@GetMapping("/getByEmail")
+	public ResponseEntity<?> getByEmail(@Valid @RequestParam String email){
+		return ResponseEntity.ok(this.candidateService.getByEmail(email));
+	}
+	
+	@GetMapping("/getCvDtoById")
+	public ResponseEntity<?> getCvDtoById(@Valid @RequestParam int candidateId){
+		return ResponseEntity.ok(this.candidateService.getCvDtoById(candidateId));
+	}
+	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
