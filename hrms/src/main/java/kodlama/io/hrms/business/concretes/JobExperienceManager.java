@@ -62,7 +62,7 @@ public class JobExperienceManager implements JobExperienceService{
 
 	@Override
 	public DataResult<List<JobExperience>> getByCandidateIdOrderByExperienceStartDate(int id) {
-		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getByCandidate_IdOrderByExperienceStartDateDesc(id));
+		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getByCandidate_IdOrderByStartDateDesc(id));
 	}
 
 	@Override
