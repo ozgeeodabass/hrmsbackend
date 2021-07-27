@@ -37,7 +37,7 @@ public class JobAdvertisementsController {
 
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody JobAdvertisement jobAdvertisement){
+	public ResponseEntity<?> add( @RequestBody JobAdvertisement jobAdvertisement){
 		return ResponseEntity.ok(this.jobAdvertisementService.add(jobAdvertisement));
 	}
 	

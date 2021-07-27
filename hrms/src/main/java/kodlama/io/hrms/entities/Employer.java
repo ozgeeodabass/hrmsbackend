@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -15,6 +16,7 @@ import com.sun.istack.Nullable;
 import kodlama.io.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -22,6 +24,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "employers")
+@PrimaryKeyJoinColumn(name="id",referencedColumnName = "id")
+@EqualsAndHashCode(callSuper = false)
 public class Employer extends User {
 	
 	@Column(name = "web_site")

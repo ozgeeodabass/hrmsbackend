@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +37,7 @@ public class JobExperience {
 	private LocalDate startDate;
 	
 	@Column(name="end_date",nullable = true)
+	@JsonIgnore
 	private LocalDate endDate;
 	
 	
@@ -43,6 +45,7 @@ public class JobExperience {
 	
 	
 	@ManyToOne()
+	@JsonIgnoreProperties({"email","password","passwordAgain","nationalityId","dateOfBirth", "isEmailVerified","createdDate"})
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 	

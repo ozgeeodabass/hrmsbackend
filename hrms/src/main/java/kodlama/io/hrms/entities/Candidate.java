@@ -19,11 +19,13 @@ import com.sun.istack.Nullable;
 
 import kodlama.io.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Data
 @Table(name="candidates")
 @PrimaryKeyJoinColumn(name= "id", referencedColumnName = "id")
 @AllArgsConstructor

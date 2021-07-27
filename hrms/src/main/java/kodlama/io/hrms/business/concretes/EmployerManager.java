@@ -30,9 +30,9 @@ public class EmployerManager implements EmployerService {
 		if(!isEmailExists(employer.getEmail())) {
 			return new ErrorResult("Email already exist. Please try another email.");
 		}
-		if(!isEmailAndDomainEqual(employer.getEmail(), employer.getWebSite())) {
-			return new ErrorResult("Email must include domain name.");
-		}
+		//if(isEmailAndDomainEqual(employer.getEmail(), employer.getWebSite())) {
+			//return new ErrorResult("Email must include domain name");
+		//}
 		this.employerDao.save(employer);
 		return new SuccessResult("Employer added");
 		}
@@ -75,7 +75,7 @@ public class EmployerManager implements EmployerService {
 	
 	private boolean isEmailAndDomainEqual(String email, String website) {
 		String[] emailArr = email.split("@", 2);
-		String domain = website.substring(4, website.length());
+		String domain = website.substring(4, (website.length()-1));
 
 		if (emailArr[1].equals(domain)) {
 

@@ -48,7 +48,7 @@ public class CandidatesController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody Candidate candidate) {
+	public ResponseEntity<?> add( @RequestBody Candidate candidate) {
 		
 		return ResponseEntity.ok(this.candidateService.add(candidate));
 		

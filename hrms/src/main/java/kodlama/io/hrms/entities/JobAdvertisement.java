@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,6 +44,7 @@ public class JobAdvertisement {
 	private int numberOfOpenPositions;
 	
 	@Column(name="created_date")
+	@JsonIgnore
 	private LocalDate createdDate = LocalDate.now();
 	
 	@Column(name="application_deadline")
@@ -59,15 +61,18 @@ public class JobAdvertisement {
 	//relational properties
 	
 	@ManyToOne()
-	@JoinColumn(name="employer_id")
+	@JsonIgnoreProperties({"id","webSite","phoneNumber","password","passwordAgain","email","isEmailVerified","isVerifiedBySystemPersonel"})
+	@JoinColumn(name="id",insertable=false, updatable=false)
 	private Employer employer;
 	
 	@ManyToOne()
-	@JoinColumn(name="city_id")
+	@JsonIgnoreProperties({"id"})
+	@JoinColumn(name="id",insertable=false, updatable=false)
 	private City city;
 	
 	@ManyToOne()
-	@JoinColumn(name="job_position_id")
+	@JsonIgnoreProperties({"id"})
+	@JoinColumn(name="id",insertable=false, updatable=false)
 	private JobPosition jobPosition;
 	
 	

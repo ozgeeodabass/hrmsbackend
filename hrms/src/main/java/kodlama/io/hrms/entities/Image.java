@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,13 +35,15 @@ public class Image {
 	private String url;
 	
 	@Column(name="uploaded_date")
+	@JsonIgnore
 	private LocalDate uploadedDate= LocalDate.now();
 	
 	
 	//relational properties
 	
 	
-	@OneToOne(optional=false,fetch=FetchType.LAZY)
+	@OneToOne
+	@JsonIgnoreProperties({"email","password","passwordAgain","nationalityId","dateOfBirth", "isEmailVerified","createdDate"})
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 	

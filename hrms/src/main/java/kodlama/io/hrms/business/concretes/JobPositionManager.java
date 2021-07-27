@@ -44,10 +44,15 @@ public class JobPositionManager implements JobPositionService {
 
 	@Override
 	public Result add(JobPosition jobPosition) {
-		if(this.jobPositionDao.getByTitle(jobPosition.getTitle())!=null)
-            return new ErrorResult("Job position alreadry exists.");
-        this.jobPositionDao.save(jobPosition);
+		if(this.jobPositionDao.getByTitle(jobPosition.getTitle())!=null) {
+			return new ErrorResult("Job position alreadry exists.");
+		}
+            
+		else {
+			this.jobPositionDao.save(jobPosition);
         return new SuccessResult("Job position added");
+		}
+        
 	}
 		
 
