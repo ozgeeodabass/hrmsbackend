@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
@@ -31,14 +32,17 @@ public class Employer extends User {
 	@Column(name = "web_site")
 	@NotBlank
 	@NotNull
+	@JsonIgnore
 	private String webSite;
 	
 	@NotBlank
 	@NotNull
+	@JsonIgnore
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
 	@Column(name="password_again")
+	@JsonIgnore
 	private String passwordAgain;
 	
 	@NotBlank

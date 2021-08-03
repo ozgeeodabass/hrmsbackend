@@ -9,11 +9,16 @@ import kodlama.io.hrms.entities.JobAdvertisement;
 
 public interface JobAdvertisementService {
 	
-	DataResult<List<JobAdvertisement>> getByIsActive();
+	DataResult<List<JobAdvertisement>> getAllByIsActive();
 
 	DataResult<List<JobAdvertisement>> getAllSortedByReleaseDate();
 
 	DataResult<List<JobAdvertisement>> getAllByEmployerId(int employerId);
+	
+	DataResult<List<JobAdvertisement>> getAll();
+	
+	DataResult<JobAdvertisement> getById(int id);
+	
 	
 	Result toggleActive(int jobId);
 	

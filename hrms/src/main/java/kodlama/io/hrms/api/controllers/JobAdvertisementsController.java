@@ -51,11 +51,15 @@ public class JobAdvertisementsController {
 		return ResponseEntity.ok(this.jobAdvertisementService.update(jobAdvertisement));
 	}
 	
-	@GetMapping("/getByIsActive")
-	public ResponseEntity<?> getByIsActive(){
-		return ResponseEntity.ok(this.jobAdvertisementService.getByIsActive());
+	@GetMapping("/getAllByIsActive")
+	public ResponseEntity<?> getAllByIsActive(){
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByIsActive());
 	}
 	
+	@GetMapping("/getAll")
+	public ResponseEntity<?> getAll(){
+		return ResponseEntity.ok(this.jobAdvertisementService.getAll());
+	}
 	
 	@GetMapping("/getByAppealDeadline")
 	public ResponseEntity<?> getByAppealDeadline(){
@@ -67,6 +71,11 @@ public class JobAdvertisementsController {
 	@GetMapping("/getAllByEmployerId")
 	public ResponseEntity<?> getAllByEmployerId(int employerId){
 		return ResponseEntity.ok(this.jobAdvertisementService.getAllByEmployerId(employerId));
+	}
+	
+	@GetMapping("/getById")
+	public ResponseEntity<?> getById(@RequestParam @Valid int id){
+		return ResponseEntity.ok(this.jobAdvertisementService.getById(id));
 	}
 }
 

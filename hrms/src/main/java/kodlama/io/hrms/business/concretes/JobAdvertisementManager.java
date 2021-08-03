@@ -39,8 +39,8 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	
 	
 	@Override
-	public DataResult<List<JobAdvertisement>> getByIsActive() {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActive(),"All active advertisement listed !");
+	public DataResult<List<JobAdvertisement>> getAllByIsActive() {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getAllByIsActive(),"All active advertisement listed !");
 		
 	}
 
@@ -116,6 +116,17 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAll() {
+		
+		return new SuccessDataResult<List<JobAdvertisement>>(jobAdvertisementDao.findAll());
+	}
+
+	@Override
+	public DataResult<JobAdvertisement> getById(int id) {
+		return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.getById(id));
 	}
 	
 	

@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 @Table(name="job_advertisements")
 public class JobAdvertisement {
 
@@ -48,7 +49,7 @@ public class JobAdvertisement {
 	private LocalDate createdDate = LocalDate.now();
 	
 	@Column(name="application_deadline")
-	private LocalDate applicationDeadline;
+	private Date applicationDeadline;
 	
 	@Column(name="is_verified_by_system_personel",columnDefinition="boolean default false")
 	private Boolean isVerifiedBySystemPersonel=false;
@@ -61,7 +62,7 @@ public class JobAdvertisement {
 	//relational properties
 	
 	@ManyToOne()
-	@JsonIgnoreProperties({"id","webSite","phoneNumber","password","passwordAgain","email","isEmailVerified","isVerifiedBySystemPersonel"})
+	@JsonIgnoreProperties({"id","password","email","webSite","phoneNumber","passwordAgain","isEmailVerified","isVerifiedBySystemPersonel"})
 	@JoinColumn(name="id",insertable=false, updatable=false)
 	private Employer employer;
 	
